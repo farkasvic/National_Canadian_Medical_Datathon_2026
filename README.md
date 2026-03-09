@@ -1,4 +1,4 @@
-# OncoSight: Multimodal pCR Prediction for Breast Cancer
+# Multimodal pCR Prediction for Breast Cancer [Third Place]
 
 **National Canadian Medical Datathon 2026** · Team 6
 
