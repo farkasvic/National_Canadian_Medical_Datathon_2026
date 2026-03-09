@@ -14,10 +14,14 @@ st.markdown("Upload a patient's histology patch and input clinical data to predi
 # --- LOAD MODELS ---
 @st.cache_resource
 def load_pipeline():
-    # Replace these with your actual saved file paths
-    preprocessor = pickle.load(open('preprocessor.pkl', 'rb'))
-    model = tf.keras.models.load_model('keras_pcr_model.h5')
-    return None, None 
+    """Load preprocessor and model from artifacts.pkl (run model notebook first)."""
+    import os
+    artifacts_path = os.path.join(os.path.dirname(__file__), 'models', 'artifacts.pkl')
+    if os.path.exists(artifacts_path):
+        with open(artifacts_path, 'rb') as f:
+            data = pickle.load(f)
+        return data.get('processor'), data.get('model')
+    return None, None
 
 preprocessor, model = load_pipeline()
 
@@ -101,10 +105,12 @@ with col3:
                 'Histology (0=IDC; 1=ILC; 2=IMC)': [histology]
             })
             
-            # Predict (replace mock with actual when ready)
-            # processed_data = preprocessor.transform(input_data)
-            # prediction_prob = model.predict(processed_data)[0][0]
-            prediction_prob = 0.8549 
+            # Predict using model when available, else demo value
+            if preprocessor is not None and model is not None:
+                processed_data = preprocessor.transform(input_data)
+                prediction_prob = float(model.predict(processed_data, verbose=0)[0][0])
+            else:
+                prediction_prob = 0.8549  # Demo value when model not trained 
             
             st.metric(label="pCR Probability", value=f"{prediction_prob * 100:.1f}%")
             
