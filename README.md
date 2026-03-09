@@ -10,13 +10,16 @@ Predicting breast cancer response to Neoadjuvant Chemotherapy (NAC) using clinic
 
 We built an end-to-end multimodal deep learning pipeline to predict **pathologic complete response (pCR)** vs partial response in breast cancer patients undergoing NAC. By extracting spatial features (nuclear density, edge complexity, clump count) from Whole Slide Images (WSIs) and fusing them with clinical variables, our Keras neural network outperformed baseline models, demonstrating that integrating digital pathology with clinical history improves predictive accuracy.
 
+![Feature extraction from tissue patches](assets/feature_img1.png)
+_OpenCV-based extraction of nuclear density and edge complexity from histology patches._
+
 ### Key Results
 
-| Metric | Value |
-|--------|-------|
-| **Overall Accuracy** | 78% |
-| **Complete Response Precision** | 92% |
-| **Partial Response Recall** | 93% |
+| Metric                          | Value |
+| ------------------------------- | ----- |
+| **Overall Accuracy**            | 78%   |
+| **Complete Response Precision** | 92%   |
+| **Partial Response Recall**     | 93%   |
 
 The model favors sensitivity for partial responses—catching almost all non-responders while occasionally underestimating complete responders—an ideal balance for clinical triage.
 
